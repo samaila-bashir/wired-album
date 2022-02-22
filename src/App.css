@@ -92,32 +92,3 @@ nav ul li.logo {
     font-size: 30px;
     font-weight: 700;
 }
-
-
-
-.gallery {
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-}
-
-.gallery img {
-    width: 100%;
-    display: block;
-}
-
-.description {
-    line-height: 1.5;
-    font-size: 1.2em;
-    padding: 18px;
-    /*background: #fafafa;*/
-    background: #48a9cb;
-    color: ghostwhite;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-footer {
-    padding: 20px;
-    text-align: center;
-    font-size: 20px;
-    color: ghostwhite;
-}

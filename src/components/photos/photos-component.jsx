@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Gallery, GalleryImage, Description } from "./photos-styled";
 
 const axiosInstance = axios.create({
     baseURL: "https://jsonplaceholder.typicode.com"
@@ -25,12 +26,12 @@ const Photos = () => {
         <div className="container">
             {
                 photos.map(photo => 
-                    <div className="gallery" key={photo.id}>
-                        <img src="https://via.placeholder.com/400x300.png" alt="Placeholder images" />
-                        <div className="description">
-                            Add the image title here...
-                        </div>
-                    </div>
+                    <Gallery className="gallery" key={photo.id}>
+                        <GalleryImage src={`${photo.url}`} alt={`${photo.title}`} />
+                        <Description className="description">
+                        {photo.title}
+                        </Description>
+                    </Gallery>
                 )
             }
         </div>
