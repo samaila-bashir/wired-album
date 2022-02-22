@@ -6,9 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Search, SearchIconWrapper, StyledInputBase } from "./Navbar-styled"
-
-
+import { Search, SearchIconWrapper, StyledInputBase } from "./navbar-styled"
 
 export default function SearchAppBar() {
   return (
