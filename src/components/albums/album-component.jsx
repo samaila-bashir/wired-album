@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import albumImg from "../../img/album.png";
 
 const axiosInstance = axios.create({
@@ -23,10 +24,12 @@ const Album = () => {
     return (
         <div className="container">
             { albums.map(album => 
-                <div className="album">
-                    <img src={albumImg} alt="Album cover" />
-                    <h1>{ album.title }</h1>
-                </div>
+                
+                    <div className="album" key={album.id}>
+                        <img src={albumImg} alt="Album cover" />
+                        <Link to={`/photos/${album.id}`}>{ album.title }</Link>
+                    </div>
+                
             ) }
         </div>        
     );
