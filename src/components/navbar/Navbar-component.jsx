@@ -8,7 +8,27 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Search, SearchIconWrapper, StyledInputBase } from "./navbar-styled"
 
-export default function SearchAppBar() {
+export default function SearchAppBar({ showSearch }) {
+
+  // const [filterPhotos, setFilterPhotos] = React.useState([]);
+
+  const renderSearch = () => {
+    if (showSearch) {
+      return (
+        <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              // onChange={ (e) => setFilterPhotos(e.target.value) }
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+      );
+    }
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -30,15 +50,7 @@ export default function SearchAppBar() {
           >
             WIREDALBUM
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          { renderSearch() }
         </Toolbar>
       </AppBar>
     </Box>

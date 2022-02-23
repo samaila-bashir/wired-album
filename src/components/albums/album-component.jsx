@@ -1,41 +1,55 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import albumImg from "../../img/album.png";
-import { Albums, Title, AlbumLink } from "./album-styled";
+import { Albums, Title } from "./album-styled";
+import Navbar from "../navbar/Navbar-component";
+import AlbumActions from '../../actions/albums/albums';
+import Components from '../../components/index';
 
-const axiosInstance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com"
-});
+
 
 const Album = () => {
 
     const [albums, setAlbums] = useState([]);
+    const [errorMessage,setErrorMessage] = useState('');
 
-    useEffect(() => {
-        axiosInstance.get("/users/1/albums")
-            .then(response => {
-                setAlbums(response.data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+
+    const handleGetAlbums = async ()=> {
+        const albums = await AlbumActions.getAlbums();
+        if(albums.success){
+            setAlbums(albums.payload)
+        }else{
+            setErrorMessage(albums.payload);
+        }
+    }
+
+    useEffect(() => {   
+        handleGetAlbums();
     }, []);
 
     return (
-        <div className="container">
-            { albums.map(album => 
-                
-                <Albums className="album" key={album.id}>
-                    <img src={albumImg} alt="Album cover" />
-                    <Title>{ album.title }</Title>
-                    <Link to={`/photos/${album.id}`}>View Album</Link>
-                </Albums>
-                
-            ) }
-        </div>        
+        <>
+            <Navbar showSearch={false} />
+            <div className="container">
+                {errorMessage && 
+                <Components.Alert 
+                  onClick={handleGetAlbums} 
+                  message={errorMessage}
+                 />}
+                {!errorMessage && albums.map(album => 
+                    
+                    <Albums className="album" key={album.id}>
+                        <img src={albumImg} alt="Album cover" />
+                        <Title>{ album.title }</Title>
+                        <Link to={`/photos/${album.id}`}>View Album</Link>
+                    </Albums>
+                    
+                ) }
+            </div>       
+        </> 
     );
 
 }
 
 export default Album;
+
