@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Gallery, GalleryImage, Description } from "./photos-styled";
-import Navbar from "../navbar/Navbar-component";
+import Navbar from "../AppBar/appBar-component";
 import AlbumActions from '../../actions/albums/albums';
+import Components from '../../components/index';
 
 const Photos = () => {
 
@@ -11,7 +11,6 @@ const Photos = () => {
     const [photos, setPhotos] = useState([]);
     const [errorMessage,setErrorMessage] = useState('');
 
-    // const [filter, setFilter] = useState([]);
 
     const handleGetAlbum = async ()=> {
         const albums = await AlbumActions.getAlbum(id);
@@ -21,6 +20,7 @@ const Photos = () => {
             setErrorMessage(albums.payload);
         }
     }
+
     useEffect(() => {
        handleGetAlbum();
     }, []);
@@ -29,6 +29,13 @@ const Photos = () => {
        <>
         <Navbar showSearch={true} />
             <div className="container">
+                { 
+                    errorMessage 
+                    && <Components.Alert 
+                    message={errorMessage} 
+                    onclick={handleGetAlbum} /> 
+                }
+
                 {
                     photos.map(photo => 
                         <Gallery className="gallery" key={photo.id}>
